@@ -13,26 +13,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
         
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22' # Upgraded to fix deprecation warnings
           cache: 'npm'
           
-      - name: Install deps
+      - name: Install Dependencies
         run: npm ci
         
-      - name: Build
-        # Dynamically injects the base-href matching your exact repository name
+      - name: Build Application
         run: npx ng build --configuration production --base-href "/kavin_portfolio/"
         
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Angular 18 Fix: Removed the "/browser" suffix
           path: ./dist/kavin_portfolio
           
   deploy:

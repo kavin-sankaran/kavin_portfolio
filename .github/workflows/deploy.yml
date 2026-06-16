@@ -6,7 +6,7 @@ on:
       - main # Change this to 'master' if your default branch is master
 
 permissions:
-  contents: write # Allows the workflow to create and update the gh-pages branch
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -19,18 +19,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.19.5' # Matches your exact local Node version
+          node-version: '24' # Upgraded to Node 24 to clear the deprecation warning
           cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
       - name: Build Application
-        # Replace <YOUR_REPO_NAME> with your actual GitHub repository name (e.g., /my-portfolio/)
-        run: npx ng build --configuration production --base-href /<YOUR_REPO_NAME>/
+        # Force production configuration explicitly and handle fallback
+        run: npx ng build --configuration production --base-href /${{ github.event.repository.name }}/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/kavin_portfolio/browser # The directory where your production code compiles
-          branch: gh-pages # The branch the action will deploy to
+          folder: dist/kavin_portfolio/browser
+          branch: gh-pages

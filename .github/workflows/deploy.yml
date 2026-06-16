@@ -12,9 +12,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Forces the runner context to accept Node 24 standard specifications
+    # Forces the runner to allow Node 20 execution despite the deprecation rules
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
     steps:
       - name: Checkout Code
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24' # Upgraded to match GitHub's 2026 default runner standard
+          node-version: '20' # Keeps your required Node 20 environment
           cache: 'npm'
           
       - name: Install Dependencies
@@ -40,6 +40,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Forces the deploy job environment runner to also accept Node 20 actions
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

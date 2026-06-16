@@ -12,6 +12,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Forces the runner context to accept Node 24 standard specifications
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -19,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Upgraded to fix deprecation warnings
+          node-version: '24' # Upgraded to match GitHub's 2026 default runner standard
           cache: 'npm'
           
       - name: Install Dependencies

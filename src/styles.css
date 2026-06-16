@@ -1,0 +1,34 @@
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure body doesn't overflow horizontally */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+}
+
+/* Custom card hover transitions */
+.transition-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.transition-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Max width utility for hero text readability */
+.max-width-600 {
+  max-width: 600px;
+}
+
+/* Custom styling to ensure check marks align perfectly */
+.list-unstyled li i {
+  font-size: 1.1rem;
+  line-height: 1;
+}

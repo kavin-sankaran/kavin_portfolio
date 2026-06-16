@@ -1,0 +1,24 @@
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">About & Technical Skills</h2>
+    <div class="row g-4">
+      <div class="col-lg-4" *ngFor="let cat of skillCategories">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title text-primary h5 fw-bold mb-3">
+              {{ cat.title }}
+            </h4>
+            <div class="d-flex flex-wrap gap-2">
+              <span
+                class="badge bg-light text-dark px-3 py-2 fs-6 fw-normal"
+                *ngFor="let skill of cat.skills"
+              >
+                {{ skill }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

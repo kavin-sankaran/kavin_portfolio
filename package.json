@@ -2,12 +2,13 @@
   "name": "kavin-portfolio",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "deploy": "ng build --configuration production --base-href /kavin_portfolio/ && ngh --dir=dist/kavin_portfolio/browser"
+},
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",

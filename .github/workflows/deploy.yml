@@ -1,49 +1,36 @@
-name: Deploy Angular to GitHub Pages
+name: Build and Deploy Angular to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-
-# GLOBAL FIX: This applies the opt-out flag to ALL jobs (both build and deploy)
-env:
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+    branches:
+      - main # Change this to 'master' if your default branch is master
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # Allows the workflow to create and update the gh-pages branch
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20.19.5' # Matches your exact local Node version
           cache: 'npm'
-          
+
       - name: Install Dependencies
         run: npm ci
-        
+
       - name: Build Application
-        run: npx ng build --configuration production --base-href "/kavin_portfolio/"
-        
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist/kavin_portfolio
-          
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+        # Replace <YOUR_REPO_NAME> with your actual GitHub repository name (e.g., /my-portfolio/)
+        run: npx ng build --configuration production --base-href /<YOUR_REPO_NAME>/
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/kavin_portfolio/browser # The directory where your production code compiles
+          branch: gh-pages # The branch the action will deploy to
